@@ -2,7 +2,7 @@
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func, inspect
+from sqlalchemy import create_engine, func
 
 # import datetime module to calculate delta time
 import datetime as dt
@@ -15,7 +15,7 @@ import pandas as pd
 from flask import Flask, jsonify
 
 # create connection and map out database using SQLAlchemy
-engine = create_engine("sqlite:///Resources/hawaii.sqlite", connect_args={'check_same_thread': False})
+engine = create_engine("sqlite:///Resources/hawaii.sqlite") # , connect_args={'check_same_thread': False}
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
@@ -24,7 +24,7 @@ station = Base.classes['station']
 measurement = Base.classes['measurement']
 
 # create session connection to query data
-session = Session(engine)
+# session = Session(engine)
 
 #################################################
 # Flask Setup
@@ -55,25 +55,28 @@ def welcome():
 # covert all temps to json format
 @app.route("/api/v1.0/precipitation")
 def get_precipitation():
+    session = Session(engine)
     results = session.query(measurement.date, measurement.prcp).all()
     prcp_dict = dict(results)
     return jsonify(prcp_dict)
-session.close()
+    session.close()
 
 # create a json list of stations from the dataset
 @app.route("/api/v1.0/stations")
 def get_stations():
+    session = Session(engine)
     results = session.query(measurement.station).group_by(measurement.station).all()
     # list comprehension
     station_list = [station[0] for station in results] 
     return jsonify(station_list) 
-session.close()
+    session.close()
 
 # Query the dates and temperature observations of the most active station for the last year of data.
 # Return a JSON list of temperature observations (TOBS) for the previous year.
 @app.route("/api/v1.0/tobs")
 def get_1yr_temp():
 
+    session = Session(engine)
     # query entire table to find all station, group by station name and count # of data points
     # sort from largest to smallest by # of data points
     prp_station = session.query(measurement.station,func.count(measurement.station))\
@@ -100,13 +103,14 @@ def get_1yr_temp():
     # convert name and temps into a dictionary
     temp_dict = {top_station_id : temp_list}
     return jsonify(temp_dict)
-session.close() 
+    session.close() 
 
 
 
 # When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date.
 @app.route("/api/v1.0/startdate=<start>")
 def get_temps_start(start):
+    session = Session(engine)
     # get the first and last date of the whole dataset
     prp_tpl = session.query(measurement.date, measurement.prcp).all() 
     first_date = dt.datetime.strptime(prp_tpl[0][0], '%Y-%m-%d')
@@ -115,7 +119,7 @@ def get_temps_start(start):
     # convert the input to datetime format
     start = dt.datetime.strptime(start, '%Y-%m-%d')
 
-# Test to see if the input date is within range, if not return error
+    # Test to see if the input date is within range, if not return error
     if start < first_date or start > last_date:
         return jsonify({"error" : "Input date is out of range!"},
                 {"the first available date" : first_date},
@@ -130,13 +134,15 @@ def get_temps_start(start):
             "max" : tempQ[0][2],
         }
         return jsonify(tempdict)
-session.close() 
+    session.close() 
 
 
 # When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date.
 # When given the start and the end date, calculate the TMIN, TAVG, and TMAX for dates between the start and end date inclusive.
 @app.route("/api/v1.0/startdate=<start>/enddate=<end>/")
 def get_temps_start_end(start, end):
+    session = Session(engine)
+
     # get the first and last date of the whole dataset
     prp_tpl = session.query(measurement.date, measurement.prcp).all() 
     first_date = dt.datetime.strptime(prp_tpl[0][0], '%Y-%m-%d')
@@ -147,11 +153,6 @@ def get_temps_start_end(start, end):
     end_date = dt.datetime.strptime(end, '%Y-%m-%d')
     end_date_com = end_date
     start_date_com = start_date
-
-    # if the start date and end date were reversely input, auto-correct
-    if start_date > end_date:
-        start_date = end_date_com
-        end_date = start_date_com
 
     # Test to see if the input date is within range, if not return error
     if start_date < first_date or start_date > last_date:
@@ -167,6 +168,11 @@ def get_temps_start_end(start, end):
         ), 404
 
     else:
+        
+    # if the start date and end date were reversely input, auto-correct
+        if start_date > end_date:
+            start_date = end_date_com
+            end_date = start_date_com
         tempQ= session.query(func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)).\
         filter(measurement.date >= start_date).filter(measurement.date >= end_date).all()
         tempdict = {
@@ -175,7 +181,7 @@ def get_temps_start_end(start, end):
             "max" : tempQ[0][2],
         }
         return jsonify(tempdict)
-session.close() 
+    session.close() 
 
 if __name__ == '__main__':
     app.run(debug=True)
