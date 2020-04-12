@@ -6,10 +6,10 @@ Hawaii is known for one of the best places in the world for vacation, thanks to 
   
 ## Workflow  
 * Establish connection between Jupyter Notebook and SQL_Lite Database  
-* Perform Precipitaion Analysis:
-    - Retrieve data during the past 12 months (from the lastest available date)  
+* Perform Precipitation Analysis:
+    - Retrieve data during the past 12 months (from the latest available date)  
     - Plot total rainfall over time  
-    - Perform quick statistic analysis on the rainfall data (mean, max, min, count, etc.)  
+    - Perform quick statistical analysis on the rainfall data (mean, max, min, count, etc.)  
     
 * Perform Station Analysis:  
     - Produce a comprehensive list of all available stations and number of records  
@@ -32,17 +32,17 @@ Hawaii is known for one of the best places in the world for vacation, thanks to 
 * Python | Pandas | SQLAlchemy | Flask | Matplotlib | Pyplot | Statistics | API  
 * Advance Query with Engine, create session to retrieve data  
 * Merge table, convert query to dataframe, perform query functions  
-* List Comprehension, datetime<=>string convertion
+* List Comprehension, datetime<=>string conversion
 * Plot data by bar chart, line chart, histogram, with "fivethirtyeight" style matplotlib
 
 
 ## Table of Contents  
-* **Images** :: folder contains all images of exported graphs and readme image  
-* **Resources** :: folder contains datafile of Hawaii weather   
-  - **hawaii.sqlite** :: SQL database with two tables - *measurement* and *station*   
-  - **hawaii_measurements.csv** :: contains columns : *station, date, prcp*   
-  - **hawaii_stations.csv** :: contains columns : *station, name,	latitude, longitude, elevation*    
-* **.gitignore** :: archive of not uploaded file name
-* **README.md** :: markdown readme file of this repository
-* **app.py** :: source codes to create API app from Python Flask
-* **climate.ipynb** :: source codes of all weather analysis of Hawaii
+* **Images** ::  folder contains all images of exported graphs and readme image  
+* **Resources**  ::  folder contains datafile of Hawaii weather   
+  - **hawaii.sqlite**  ::  SQL database with two tables - *measurement* and *station*   
+  - **hawaii_measurements.csv**  ::  contains columns : *station, date, prcp*   
+  - **hawaii_stations.csv**  ::  contains columns : *station, name, latitude, longitude, elevation*    
+* **.gitignore**  ::  archive of not uploaded file name
+* **README.md**  ::  markdown readme file of this repository
+* **app.py**  ::  source codes to create API app from Python Flask
+* **climate.ipynb**  ::  source codes of all weather analysis of Hawaii
