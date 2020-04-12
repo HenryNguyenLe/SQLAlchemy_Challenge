@@ -28,4 +28,12 @@ Hawaii is known for one of the best places in the world for vacation, thanks to 
 
 * Build an Application Programming Interface (API) to get access to entire database with JSON format  
 
-## Tools and Techniques  
+## Tools and Techniques
+* Python | Pandas | SQLAlchemy | Flask | Matplotlib | Pyplot | Statistics | API  
+* Advance Query with Engine, create session to retrieve data  
+* Merge table, convert query to dataframe, perform query functions  
+* List Comprehension, datetime<=>string convertion   
+
+
+## Table of Contents  
+* 
