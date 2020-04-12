@@ -1,4 +1,4 @@
 # Vacation Planning at Hawaii
 ## Overview
-![Image description](/Images/Hawaii.jpg)
-![this screenshot](../Images/Hawaii.jpg)
+![Hawaii Image - Henry Le](/Images/Hawaii.jpg)
+
