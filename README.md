@@ -1,6 +1,6 @@
 # Vacation Planning at Hawaii
 ## Overview
-Hawaii is known for one of the best places in the world for vacation, thanks to its evergreen islands and extremely comfortable weather. In this repository, Hawaii weather parameters such as precipitation and temperature are analyzed to see if the weather of the pre-picked vacation dates are good or not.
+Hawaii is known for one of the best places in the world for vacation, thanks to its evergreen islands and extremely comfortable weather. In this repository, Hawaii weather parameters such as precipitation and temperature are analyzed to see if the weather of the pre-picked vacation dates is good or not.
   
 ![Hawaii Image - Henry Le](/Images/Hawaii.jpg)
   
