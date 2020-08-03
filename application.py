@@ -10,9 +10,15 @@ import datetime as dt
 # other dependencies from pandas and numpy modules
 import numpy as np
 import pandas as pd
+import requests
+import json
 
 # set up app by flask
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, url_for, redirect, request
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 
 # create connection and map out database using SQLAlchemy
 engine = create_engine("sqlite:///Resources/hawaii.sqlite") # , connect_args={'check_same_thread': False}
@@ -27,33 +33,24 @@ measurement = Base.classes['measurement']
 # session = Session(engine)
 
 #################################################
-# Flask Setup
+#                   Flask Setup
 #################################################
 app = Flask(__name__)
 
 
 #################################################
-# Flask Routes
+#               Flask RESTful APIs
 #################################################
 
 # create Home page and list all routes that are available.
 @app.route("/")
 def welcome():
-    """List all available api routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/precipitation<br/>"       
-        f"/api/v1.0/stations<br/>"
-        f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/startdate=<start><br/>"
-        f"/api/v1.0/startdate=<start>/enddate=<end><br/>"
-        f"<br/>"
-        f"NOTE: all dates are in format YYYY-MM-DD<br/>"
-    )
+    # Homepage
+    return render_template("index.html")
 
 # access database and get all temperature data
 # covert all temps to json format
-@app.route("/api/v1.0/precipitation")
+@app.route("/api/precipitation")
 def get_precipitation():
     session = Session(engine)
     results = session.query(measurement.date, measurement.prcp).all()
@@ -62,7 +59,7 @@ def get_precipitation():
     session.close()
 
 # create a json list of stations from the dataset
-@app.route("/api/v1.0/stations")
+@app.route("/api/stations")
 def get_stations():
     session = Session(engine)
     results = session.query(measurement.station).group_by(measurement.station).all()
@@ -73,7 +70,7 @@ def get_stations():
 
 # Query the dates and temperature observations of the most active station for the last year of data.
 # Return a JSON list of temperature observations (TOBS) for the previous year.
-@app.route("/api/v1.0/tobs")
+@app.route("/api/tobs")
 def get_1yr_temp():
 
     session = Session(engine)
@@ -108,7 +105,7 @@ def get_1yr_temp():
 
 
 # When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date.
-@app.route("/api/v1.0/startdate=<start>")
+@app.route("/api/startdate=<start>")
 def get_temps_start(start):
     session = Session(engine)
     # get the first and last date of the whole dataset
@@ -139,7 +136,7 @@ def get_temps_start(start):
 
 # When given the start only, calculate TMIN, TAVG, and TMAX for all dates greater than and equal to the start date.
 # When given the start and the end date, calculate the TMIN, TAVG, and TMAX for dates between the start and end date inclusive.
-@app.route("/api/v1.0/startdate=<start>/enddate=<end>/")
+@app.route("/api/startdate=<start>/enddate=<end>/")
 def get_temps_start_end(start, end):
     session = Session(engine)
 
@@ -183,6 +180,19 @@ def get_temps_start_end(start, end):
         return jsonify(tempdict)
     session.close() 
 
+@app.route('/example', methods = ['GET', 'POST'])
+def example():
+    if request.method == 'POST':
+        sdate = request.form["sdate"]
+        edate = request.form["edate"]
+        params = {
+            "start" : sdate,
+            "end" : edate
+        }
+        base_url = request.host_url
+        q_url = base_url + f'api/startdate={sdate}/enddate={edate}/'
+        response = json.loads(requests.get(q_url).text)
+    return render_template('index.html', response=response)
 
 if __name__ == '__main__':
     app.run(debug=True)

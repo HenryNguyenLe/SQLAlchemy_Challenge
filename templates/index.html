@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hawaii Weather</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Hawaii !!!</h1>
+            <hr>
+            <p class="lead">Planning for vacation can be quite an intensive task. One of the most important factors to
+                consider when choosing an ideal place is its weather condition. On this simple website, users can
+                quickly query weather condition based on start date, or start and end dates.</p>
+        </div>
+        <div id="api-list">
+            <p id="api-list-header">All data can be accessed thru APIs below:</p>
+            <hr>
+            <p>Quick APIs to all available data:</p>
+            <ul>
+                <li><a href="/api/precipitation">Precipitations</a></li>
+                <li><a href="/api/stations">Weather Station List</a></li>
+                <li><a href="/api/tobs">Temperature Observations of the Most Active Station</a></li>
+            </ul>
+            <p>To query data on a specific start date or start-end dates, use the following APIs</p>
+            <p>NOTE: all dates are in format YYYY-MM-DD</p>
+            <ul>
+                <li>
+                    <code>
+                        /api/startdate=&lt;start-date&gt;
+                    </code>
+                </li>
+                <li>
+                    <code>/api/startdate=&lt;start&gt;/enddate=&lt;end&gt;/</code>
+                </li>
+            </ul>
+        </div>
+        <div id="user-input">
+            <p>Example of POST Request with API of start-end dates</p>
+            <form method="POST" action="example">
+                <label for="">Start Date:
+                    <input type="text" name="sdate" required placeholder="yyyy/mm/dd"><br>
+                </label>
+                <label for="">End Date:
+                    <input type="text" name="edate" required placeholder="yyyy/mm/dd"><br>
+                </label>
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+            <div id="results">Results:
+                {% if not response %}
+                    <p>Please input dates to begin.</p>
+                {% elif response is not defined %}
+                    <p>No data found, please check input dates.</p>
+                {% else %}
+                    <ul>
+                        <li>Minimum Temperature: {{response.min}}<sup>o</sup>F</li>
+                        <li>Max Temperature: {{response.max}}<sup>o</sup>F</li>
+                        <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
