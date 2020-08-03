@@ -1,4 +1,4 @@
-#wrapper { 
+body { 
     background: url(../images/hawaii-bg.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -7,37 +7,87 @@
     margin: 0 0;
 }
 
-.jumbotron {
+#api-list, #user-input {
     background-color: rgba(245, 240, 240, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 15px 6px rgb(73, 71, 71);
+    padding: 20px;
+
 }
 
+.jumbotron {
+    margin:0;
+    background-color: rgba(245, 245, 245, 0.9);
+    box-shadow: 2px 2px 3px 2px rgb(73, 71, 71);
+}
+
+#user-input {
+    margin-top: 25px;
+}
+
+#api-list-header {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.display-4 {
+    font-weight: 600;
+}
+
+input#btn {
+    padding: 5px;
+    margin: 10px;
+    background-color: rgba(230, 248, 247, 0.52);
+    border: solid black 1px;
+    border-radius: 5px;
+    margin-left: 0px;
+}
 
 @media only screen and (max-width: 1920px) {
     #wrapper {
         padding: 20px 300px;
     }
+    .jumbotron {
+        margin: 0 300px;
+    }
+
 }
 
-@media only screen and (max-width: 1720px) {
-    #wrapper {
-        padding: 20px 250px;
-    }
-}
+
 
 @media only screen and (max-width: 1400px) {
     #wrapper {
         padding: 20px 100px;
     }
+    .jumbotron {
+        margin:20px;
+    }
+    
+
 }
 
 @media only screen and (max-width: 1000px) {
     #wrapper {
         padding: 20px 70px;
     }
+        
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 700px) {
     #wrapper {
         padding: 20px 20px;
+    }
+    .lead{
+        font-size: 95%;
+    }
+
+    .display-4 {
+        font-size: 45px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .display-4 {
+        font-size: 35px;
     }
 }

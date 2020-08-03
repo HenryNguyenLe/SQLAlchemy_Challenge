@@ -11,23 +11,43 @@
 </head>
 
 <body>
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Hawaii !!!</h1>
+        <hr>
+        <p class="lead">Planning for vacation can be quite an intensive task. One of the most important factors to
+            consider when choosing an ideal place is its weather condition. On this simple website, users can
+            quickly query weather condition based on start and end dates. <br><br> APIs access to full data is
+            available.</p>
+    </div>
     <div id="wrapper">
-        <div class="jumbotron">
-            <h1 class="display-4">Welcome to Hawaii !!!</h1>
-            <hr>
-            <p class="lead">Planning for vacation can be quite an intensive task. One of the most important factors to
-                consider when choosing an ideal place is its weather condition. On this simple website, users can
-                quickly query weather condition based on start date, or start and end dates.</p>
-        </div>
         <div id="api-list">
-            <p id="api-list-header">All data can be accessed thru APIs below:</p>
+            <p id="api-list-header">APIs of Available Data</p>
             <hr>
             <p>Quick APIs to all available data:</p>
             <ul>
-                <li><a href="/api/precipitation">Precipitations</a></li>
-                <li><a href="/api/stations">Weather Station List</a></li>
-                <li><a href="/api/tobs">Temperature Observations of the Most Active Station</a></li>
+                <li>Precipitations
+                    <ul>
+                        <li>
+                            <a href="/api/precipitation">/api/precipitation</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>Weather Station List
+                    <ul>
+                        <li>
+                            <a href="/api/stations">/api/stations</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>Temperature Observations of the Most Active Station
+                    <ul>
+                        <li>
+                            <a href="/api/tobs">/api/tobs</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+            <br>
             <p>To query data on a specific start date or start-end dates, use the following APIs</p>
             <p>NOTE: all dates are in format YYYY-MM-DD</p>
             <ul>
@@ -42,7 +62,8 @@
             </ul>
         </div>
         <div id="user-input">
-            <p>Example of POST Request with API of start-end dates</p>
+            <p id="api-list-header">Example</p>
+            <hr>
             <form method="POST" action="example">
                 <label for="">Start Date:
                     <input type="text" name="sdate" required placeholder="yyyy/mm/dd"><br>
@@ -51,33 +72,33 @@
                     <input type="text" name="edate" required placeholder="yyyy/mm/dd"><br>
                 </label>
                 <br>
-                <input type="submit" value="Submit">
+                <input id="btn" type="submit" value="Submit">
             </form>
             <div id="results">
                 <!-- when html first loaded, there is no response
                 display message to tell user to input some dates -->
                 {% if not response %}
-                    <p>Please input dates to begin.</p>
+                <p>Please input dates to begin.</p>
 
                 <!-- when date is input, there are 2 scenarios
                     1. if date out of range, there should be "error" word
                     2. use this word as a conditions for jinja output     -->
 
                 {% elif "error" in response %}
-                    <p>Results: <b>No data found</b>, please check input dates.</p>
-                    <ul>
-                        <li>The First Available Date: {{response.the_first_available_date}}</li>
-                        <li>The Last Available Date: {{response.the_last_available_date}}</li>
-                    </ul>
-                    
-                    <!-- if response is valid with avg, min, max temp: -->
-                    {% else %}
-                    <p>Results: </p>
-                    <ul>
-                        <li>Minimum Temperature: {{response.min}}<sup>o</sup>F</li>
-                        <li>Max Temperature: {{response.max}}<sup>o</sup>F</li>
-                        <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
-                    </ul>
+                <p>Results: <b>No data found</b>, please check input dates.</p>
+                <ul>
+                    <li>The First Available Date: {{response.the_first_available_date}}</li>
+                    <li>The Last Available Date: {{response.the_last_available_date}}</li>
+                </ul>
+
+                <!-- if response is valid with avg, min, max temp: -->
+                {% else %}
+                <p>Results: </p>
+                <ul>
+                    <li>Minimum Temperature: {{response.min}}<sup>o</sup>F</li>
+                    <li>Max Temperature: {{response.max}}<sup>o</sup>F</li>
+                    <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
+                </ul>
                 {% endif %}
             </div>
         </div>
