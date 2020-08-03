@@ -153,16 +153,18 @@ def get_temps_start_end(start, end):
 
     # Test to see if the input date is within range, if not return error
     if start_date < first_date or start_date > last_date:
-            return jsonify({"error" : "start date is out of range!"},
-                    {"the first available date" : first_date},
-                    {"the last available date" : last_date}  
-            ), 404
+        return jsonify({
+            "error": "start date is out of range!",
+            "the first available date": first_date,
+            "the last available date": last_date
+        }), 404
 
     elif end_date < first_date or end_date > last_date:
-        return jsonify({"error" : "end date is out of range!"},
-                {"the first available date" : first_date},
-                {"the last available date" : last_date}  
-        ), 404
+        return jsonify({
+            "error": "end date is out of range!",
+            "the first available date": first_date,
+            "the last available date": last_date
+        }), 404
 
     else:
         
@@ -180,18 +182,24 @@ def get_temps_start_end(start, end):
         return jsonify(tempdict)
     session.close() 
 
-@app.route('/example', methods = ['GET', 'POST'])
+# example route to allow user input date in each box and get results back
+# using Flask POST method
+@app.route('/example', methods = ['POST'])
 def example():
     if request.method == 'POST':
+        # get input from html forms
         sdate = request.form["sdate"]
         edate = request.form["edate"]
-        params = {
-            "start" : sdate,
-            "end" : edate
-        }
+
+        # get current hosting URL
         base_url = request.host_url
+
+        # build custom JSON URL to get data from other Flask Route
         q_url = base_url + f'api/startdate={sdate}/enddate={edate}/'
+        # parse data from json formatted response
         response = json.loads(requests.get(q_url).text)
+    
+    # reponse then display on index with jinja connection    
     return render_template('index.html', response=response)
 
 if __name__ == '__main__':

@@ -53,10 +53,20 @@
                 <input type="submit" value="Submit">
             </form>
             <div id="results">Results:
+                <!-- when html first loaded, there is no response
+                display message to tell user to input some dates -->
                 {% if not response %}
                     <p>Please input dates to begin.</p>
-                {% elif response is not defined %}
+
+                <!-- when date is input, there are 2 scenarios
+                    1. if date out of range, there should be "error" word
+                    2. use this word as a conditions for jinja output     -->
+                {% elif "error" in response %}
                     <p>No data found, please check input dates.</p>
+                    <ul>
+                        <li>First Available Date: {{response.}}<sup>o</sup>F</li>
+                        <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
+                    </ul>
                 {% else %}
                     <ul>
                         <li>Minimum Temperature: {{response.min}}<sup>o</sup>F</li>
