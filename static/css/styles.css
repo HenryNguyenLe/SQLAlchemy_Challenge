@@ -34,6 +34,10 @@ body {
     font-weight: 600;
 }
 
+input:hover {
+    box-shadow: 0 0 2px 1px rgba(143, 27, 6, 0.774);
+}
+
 input#btn {
     padding: 5px;
     margin: 10px;
@@ -41,6 +45,12 @@ input#btn {
     border: solid black 1px;
     border-radius: 5px;
     margin-left: 0px;
+}
+
+
+input#btn:hover {
+    background-color: rgba(238, 146, 59, 0.445);
+    box-shadow: 0 0 2px 1px rgba(143, 27, 6, 0.774);
 }
 
 @media only screen and (max-width: 1920px) {
