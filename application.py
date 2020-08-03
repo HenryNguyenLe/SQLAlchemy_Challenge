@@ -118,10 +118,11 @@ def get_temps_start(start):
 
     # Test to see if the input date is within range, if not return error
     if start < first_date or start > last_date:
-        return jsonify({"error" : "Input date is out of range!"},
-                {"the first available date" : first_date},
-                {"the last available date" : last_date}  
-        ), 404
+        return jsonify({
+            "error": "Input date is out of range!",
+            "the first available date": first_date,
+            "the last available date": last_date
+        }), 404
     else:
         tempQ= session.query(func.min(measurement.tobs), func.avg(measurement.tobs), func.max(measurement.tobs)).\
         filter(measurement.date >= start).all()
@@ -144,6 +145,7 @@ def get_temps_start_end(start, end):
     prp_tpl = session.query(measurement.date, measurement.prcp).all() 
     first_date = dt.datetime.strptime(prp_tpl[0][0], '%Y-%m-%d')
     last_date = dt.datetime.strptime(prp_tpl[-1][0], '%Y-%m-%d')
+    print("##################", "\n", first_date, last_date)
 
     # convert the input to datetime format
     start_date = dt.datetime.strptime(start, '%Y-%m-%d')
