@@ -154,16 +154,16 @@ def get_temps_start_end(start, end):
     # Test to see if the input date is within range, if not return error
     if start_date < first_date or start_date > last_date:
         return jsonify({
-            "error": "start date is out of range!",
-            "the first available date": first_date,
-            "the last available date": last_date
+            "error": "start_date_is_out_of_range!",
+            "the_first_available_date": first_date,
+            "the_last_available_date": last_date
         }), 404
 
     elif end_date < first_date or end_date > last_date:
         return jsonify({
-            "error": "end date is out of range!",
-            "the first available date": first_date,
-            "the last available date": last_date
+            "error": "end_date_is_out_of_range!",
+            "the_first_available_date": first_date,
+            "the_last_available_date": last_date
         }), 404
 
     else:

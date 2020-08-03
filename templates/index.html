@@ -64,7 +64,7 @@
                 {% elif "error" in response %}
                     <p>No data found, please check input dates.</p>
                     <ul>
-                        <li>First Available Date: {{response.}}<sup>o</sup>F</li>
+                        <li>First Available Date: {{response.['the first available date']}}<sup>o</sup>F</li>
                         <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
                     </ul>
                 {% else %}
