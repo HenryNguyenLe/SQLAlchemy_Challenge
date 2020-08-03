@@ -1,0 +1,43 @@
+#wrapper { 
+    background: url(../images/hawaii-bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin: 0 0;
+}
+
+.jumbotron {
+    background-color: rgba(245, 240, 240, 0.9);
+}
+
+
+@media only screen and (max-width: 1920px) {
+    #wrapper {
+        padding: 20px 300px;
+    }
+}
+
+@media only screen and (max-width: 1720px) {
+    #wrapper {
+        padding: 20px 250px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    #wrapper {
+        padding: 20px 100px;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #wrapper {
+        padding: 20px 70px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #wrapper {
+        padding: 20px 20px;
+    }
+}
