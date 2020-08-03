@@ -95,9 +95,9 @@
                 {% else %}
                 <p>Results: </p>
                 <ul>
-                    <li>Minimum Temperature: {{response.min}}<sup>o</sup>F</li>
-                    <li>Max Temperature: {{response.max}}<sup>o</sup>F</li>
-                    <li>Average Temperature: {{response.avg}}<sup>o</sup>F</li>
+                    <li>Minimum Temperature: <span class="min-temp">{{response.min}} <sup>o</sup>F</span></li>
+                    <li>Max Temperature: <span class="max-temp">{{response.max}} <sup>o</sup>F</span></li>
+                    <li>Average Temperature: <span class="avg-temp">{{response.avg}} <sup>o</sup>F</span></li>
                 </ul>
                 {% endif %}
             </div>

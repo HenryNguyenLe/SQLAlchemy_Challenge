@@ -47,6 +47,21 @@ input#btn {
     margin-left: 0px;
 }
 
+.max-temp, .min-temp, .avg-temp {
+    font-weight: 700;
+}
+
+.max-temp {
+    color: rgb(197, 11, 11);
+}
+
+.avg-temp {
+    color: rgb(6, 179, 29);
+}
+
+.min-temp {
+    color: rgb(10, 13, 192);
+}
 
 input#btn:hover {
     background-color: rgba(238, 146, 59, 0.445);
